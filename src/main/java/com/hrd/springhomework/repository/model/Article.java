@@ -10,13 +10,15 @@ public class Article {
     private String author;
     private String description;
     private String image;
+    private int category;
 
-    public Article(int id, @NotEmpty String title, @NotEmpty String author, String description, String image) {
+    public Article(int id, @NotEmpty String title, @NotEmpty String author, String description, String image, int category) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.description = description;
         this.image = image;
+        this.category = category;
     }
 
     public Article() {
@@ -58,6 +60,14 @@ public class Article {
         return image;
     }
 
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
     public void setImage(String image) {
         this.image = image;
     }
@@ -70,6 +80,7 @@ public class Article {
                 ", author='" + author + '\'' +
                 ", description='" + description + '\'' +
                 ", image='" + image + '\'' +
+                ", category=" + category +
                 '}';
     }
 }

@@ -23,24 +23,24 @@ public class ArticleController {
     @Autowired
     public void setArticleService(ArticleService articleService) {
         this.articleService = articleService;
-        generateRecord();
+//        generateRecord();
     }
 
-    private void generateRecord() {
-        String[] imageNames = {"731cc916-7a4e-4574-9a21-f012e03ad17f.jpg",
-                "08d6a795-5973-4681-b885-ad85e9b8ca3f.jpg",
-                "673c875b-0598-45a1-a260-0e4baf971059.jpg",
-                "340d2d90-efa0-4831-8340-a2d911be506e.jpg",
-                "4751943d-5818-4666-bdd8-22350fe3679c.jpg",
-                "cedab41e-6176-452f-8264-d086d98dd550.jpg"};
-        String description = "Dogs (Canis lupus familia1ris) are domesticated mammals, " +
-                "not natural wild animals. They were originally bred from wolves. They have " +
-                "been bred by humans for a long time, and were the first animals ever to be domesticated.";
-        for (int i = 0; i < 78; i++) {
-            int index = i % imageNames.length;
-            articleService.add(new Article(i + 1, "A story of a dog", "Yorn Sokha", description, imageNames[index]));
-        }
-    }
+//    private void generateRecord() {
+//        String[] imageNames = {"731cc916-7a4e-4574-9a21-f012e03ad17f.jpg",
+//                "08d6a795-5973-4681-b885-ad85e9b8ca3f.jpg",
+//                "673c875b-0598-45a1-a260-0e4baf971059.jpg",
+//                "340d2d90-efa0-4831-8340-a2d911be506e.jpg",
+//                "4751943d-5818-4666-bdd8-22350fe3679c.jpg",
+//                "cedab41e-6176-452f-8264-d086d98dd550.jpg"};
+//        String description = "Dogs (Canis lupus familia1ris) are domesticated mammals, " +
+//                "not natural wild animals. They were originally bred from wolves. They have " +
+//                "been bred by humans for a long time, and were the first animals ever to be domesticated.";
+//        for (int i = 0; i < 78; i++) {
+//            int index = i % imageNames.length;
+//            articleService.add(new Article(i + 1, "A story of a dog", "Yorn Sokha", description, imageNames[index]));
+//        }
+//    }
 
     @GetMapping({"", "/article"})
     public String index(Model model, @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer limit) {

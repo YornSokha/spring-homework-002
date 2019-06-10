@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <!--Call fragment-->
+    <th:block th:replace="fragment/style :: style"></th:block>
+</head>
+<body>
+<div class="container-fluid">
+    <!--/.Navbar -->
+    <div id="navbar-replace">
+        <th:block th:include="fragment/navbar :: navbar-dropdown"></th:block>
+    </div>
+    <!--'<i class='far fa-2x fa-plus-square'></i> ' +-->
+    <div class="card">
+        <div class="card-header">
+            <a th:href="@{/article/create}" class="btn btn-light-dark text-white" th:utext="#{article.add_new}"></a>
+            <a class="btn btn-light-dark text-white float-right" id="btn-change-navbar"
+               th:text="#{btn.navbar-dropdown}"></a>
+        </div>
+        <div class="card-body">
+            <div th:if="${#lists.size(articles) == 0}">
+                <h1>No data</h1>
+            </div>
+            <div th:unless="${#lists.size(articles) == 0}">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th th:text="#{article.identifier}"></th>
+                        <th th:text="#{article.title}"></th>
+                        <th th:text="#{article.author}"></th>
+                        <th th:text="#{article.description}"></th>
+                        <th th:text="#{article.thumbnail}"></th>
+                        <th th:text="#{article.action}"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="article, articleStt : ${articles}">
+                        <td class="td-center" th:text="${article.id}"></td>
+                        <td class="td-center" th:text="${article.title}"></td>
+                        <td class="td-center" th:text="${article.author}"></td>
+                        <td class="td-center custom-text" th:text="${article.description}"></td>
+                        <td>
+                            <img class="img-thumbnail" style="width: 61px; height: 57px; margin-left: 1.3rem;"
+                                 th:src="${article.image eq null} ? '/img/sample.jpg' : '/img/' + ${article.image}">
+                        </td>
+                        <td class="td-center">
+                            <a th:href="@{/article/show/{id}(id=${article.id})}" data-toggle="tooltip"
+                               data-placement="top"
+                               title="View" th:attr="data-id=${article.id}"><i
+                                    class="far fa-1x-custom fa-eye text-warning"></i></a>
+                            <a th:href="@{/article/edit/{id}(id=${article.id})}" data-toggle="tooltip"
+                               data-placement="top"
+                               title="Edit" th:attr="data-id=${article.id}"><i
+                                    class="far fa-1x-custom text-primary fa-edit"></i></a>
+                            <form th:action="@{/article/{id}(id=${article.id})}" th:method="delete"
+                                  style="display: inline">
+                                <a data-toggle="tooltip" data-placement="top"
+                                   title="delete" class="delete" th:attr="data-id=${article.id}"><i
+                                        class="far fa-1x-custom text-danger fa-trash-alt"></i></a>
+                            </form>
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+                <th:block th:replace="fragment/pagination :: pagination"></th:block>
+            </div>
+        </div>
+        <div class="card-footer">
+            <p class="h5" th:text="#{article.total_articles(''+${totalRecord})}"></p>
+        </div>
+    </div>
+
+
+</div>
+<div th:replace="/fragment/footer"></div>
+<th:block th:replace="fragment/script"></th:block>
+</body>
+</html>
