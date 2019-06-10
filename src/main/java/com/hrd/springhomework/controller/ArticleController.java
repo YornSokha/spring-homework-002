@@ -48,7 +48,7 @@ public class ArticleController {
         page--;
         System.out.println(articleService.findAll().size());
         // page - 1 because paginate array list starts with 0, so need to minus 1
-        model.addAttribute("articles", articleService.paginate(page, limit));
+        model.addAttribute("articles", articleService.findAll());
         model.addAttribute("totalRecord", ArticleRepositoryImp.count);
         model.addAttribute("currentPage", ArticleRepositoryImp.currentPage + 1);
         int lastPage = (ArticleRepositoryImp.count / limit) + (ArticleRepositoryImp.count % limit == 0 ? 0 : 1);

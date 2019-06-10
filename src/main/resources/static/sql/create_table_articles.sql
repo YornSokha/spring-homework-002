@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS articles_tb;
 create table articles_tb(
 id serial primary key,
 category int,
