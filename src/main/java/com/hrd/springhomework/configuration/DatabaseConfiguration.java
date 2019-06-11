@@ -11,16 +11,16 @@ import javax.sql.DataSource;
 
 @Configuration
 public class DatabaseConfiguration {
-//    @Bean
-//    @Profile("local") // to identify the bean
-//    public DriverManagerDataSource localDB() {
-//        DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-//        driverManagerDataSource.setDriverClassName("org.postgresql.Driver");
-//        driverManagerDataSource.setUrl("jdbc:postgresql://localhost:5432/articles_db");
-//        driverManagerDataSource.setUsername("postgres");
-//        driverManagerDataSource.setPassword("sokha");
-//        return driverManagerDataSource;
-//    }
+    @Bean
+    @Profile("local") // to identify the bean
+    public DriverManagerDataSource localDB() {
+        DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
+        driverManagerDataSource.setDriverClassName("org.postgresql.Driver");
+        driverManagerDataSource.setUrl("jdbc:postgresql://localhost:5432/articles_db");
+        driverManagerDataSource.setUsername("postgres");
+        driverManagerDataSource.setPassword("sokha");
+        return driverManagerDataSource;
+    }
 
     @Bean
     @Profile("memory")

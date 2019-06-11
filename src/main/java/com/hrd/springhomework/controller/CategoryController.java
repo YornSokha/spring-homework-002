@@ -32,9 +32,22 @@ public class CategoryController {
     }
 
     @GetMapping("/category/create")
-    public String create(Model model) {
+    public String create(ModelMap model) {
         model.addAttribute("category", new Category());
         return "/categories/create";
+    }
+
+    @PostMapping("/category/add")
+    public String add(@Valid @ModelAttribute Category category,
+                      BindingResult bindingResult,
+                      RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("errorObject", bindingResult);
+            return "/categories/create";
+        }
+        categoryService.add(category);
+        return "redirect:/category/create";
     }
 
     @DeleteMapping("/category/{id}")
@@ -74,16 +87,4 @@ public class CategoryController {
         return "redirect:/category";
     }
 
-    @PostMapping("/category/add")
-    public String add(@Valid @ModelAttribute Category category,
-                      BindingResult bindingResult,
-                      RedirectAttributes redirectAttributes) {
-
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("errorObject", bindingResult);
-            return "/categories/create";
-        }
-        categoryService.add(category);
-        return "redirect:/category/create";
-    }
 }

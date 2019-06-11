@@ -24,7 +24,7 @@
                         <div class="form-group">
                             <label for="" th:text="#{category.name}">Name</label>
                             <span class="text-danger" th:if="${#fields.hasErrors('name')}"
-                                  th:text="'*' + #{category.title_not_empty}"></span>
+                                  th:text="'*' + #{category.name_required}"></span>
                             <input type="text" class="form-control" th:field="*{name}">
                         </div>
                     </div>

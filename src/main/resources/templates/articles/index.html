@@ -73,7 +73,7 @@
             </div>
         </div>
         <div class="card-footer">
-            <p class="h5" th:text="#{article.total_articles(''+${totalRecord})}"></p>
+            <p class="h5" th:text="#{article.total_articles('' + ${#lists.size(articles)})}"></p>
         </div>
     </div>
 

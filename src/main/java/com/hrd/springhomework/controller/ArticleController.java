@@ -64,10 +64,30 @@ public class ArticleController {
     }
 
     @GetMapping("/article/create")
-    public String create(Model model) {
+    public String create(ModelMap model) {
         model.addAttribute("article", new Article());
         model.addAttribute("categories", categoryService.findAll());
         return "/articles/create";
+    }
+
+    @PostMapping("/article/add")
+    public String add(@Valid @ModelAttribute Article article,
+                      BindingResult bindingResult,
+                      RedirectAttributes redirectAttributes,
+                      MultipartFile file, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult.toString());
+            redirectAttributes.addFlashAttribute("errorObject", bindingResult);
+            model.addAttribute("categories", categoryService.findAll());
+            return "/articles/create";
+        }
+
+        System.out.println(article);
+
+        UploadImage.upload(article, file);
+        articleService.add(article);
+        return "redirect:/article/create";
     }
 
     @DeleteMapping("/article/{id}")
@@ -114,24 +134,6 @@ public class ArticleController {
 
         articleService.update(article);
         return "redirect:/";
-    }
-
-    @PostMapping("/article/add")
-    public String add(@Valid @ModelAttribute Article article,
-                      BindingResult bindingResult,
-                      RedirectAttributes redirectAttributes,
-                      MultipartFile file) {
-
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("errorObject", bindingResult);
-            return "/articles/create";
-        }
-
-        System.out.println(article);
-
-        UploadImage.upload(article, file);
-        articleService.add(article);
-        return "redirect:/article/create";
     }
 
 

@@ -29,13 +29,13 @@
                         <div class="form-group">
                             <label for="" th:text="#{category.name}">Name</label>
                             <span class="text-danger" th:if="${#fields.hasErrors('name')}"
-                                  th:text="'*' + #{category.name_not_empty}"></span>
+                                  th:text="'*' + #{category.name_required}"></span>
                             <input type="text" class="form-control" th:field="*{name}" th:value="*{name}">
                         </div>
                     </div>
                     <div class="card-footer">
                         <div class="float-right">
-                            <button type="submit" class="btn btn-sm btn-primary" th:text="#{category.update}">Update
+                            <button type="submit" class="btn btn-sm btn-primary" th:text="#{btn.update}">Update
                             </button>
                             <a th:href="@{/category}" class="btn btn-sm btn-brown" th:text="#{category.go_back}">Go
                                 Back</a>

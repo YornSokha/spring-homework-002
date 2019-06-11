@@ -1,6 +1,7 @@
 package com.hrd.springhomework.repository.model;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class Article {
     private int id;
@@ -10,6 +11,7 @@ public class Article {
     private String author;
     private String description;
     private String image;
+    @NotNull
     private Category category;
 
 
