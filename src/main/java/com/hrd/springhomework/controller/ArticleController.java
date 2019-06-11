@@ -65,8 +65,7 @@ public class ArticleController {
 
     @GetMapping("/article/create")
     public String create(Model model) {
-        Article article = new Article();
-        model.addAttribute("article", article);
+        model.addAttribute("article", new Article());
         model.addAttribute("categories", categoryService.findAll());
         return "/articles/create";
     }
@@ -90,6 +89,7 @@ public class ArticleController {
     @GetMapping("/article/edit/{id}")
     public String edit(ModelMap model, @PathVariable int id) {
         model.addAttribute("article", articleService.find(id));
+        model.addAttribute("categories", categoryService.findAll());
         model.addAttribute("org.springframework.validation.BindingResult.article", model.get("errorObject"));
         return "/articles/edit";
     }
@@ -126,6 +126,8 @@ public class ArticleController {
             redirectAttributes.addFlashAttribute("errorObject", bindingResult);
             return "/articles/create";
         }
+
+        System.out.println(article);
 
         UploadImage.upload(article, file);
         articleService.add(article);

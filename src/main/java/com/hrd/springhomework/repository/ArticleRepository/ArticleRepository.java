@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface ArticleRepository {
-    @Insert("insert into tb_articles(title, author, description, image, category_id) values(#{title}, #{author}, #{description}, #{image}, #{category.id}")
+    @Insert("insert into tb_articles(title, author, description, image, category_id) values(#{title}, #{author}, #{description}, #{image}, #{category.id})")
     boolean add(Article article);
 
     @Delete("delete from tb_articles where id = #{id}")
@@ -23,13 +23,17 @@ public interface ArticleRepository {
     })
     List<Article> findAll();
 
-    @Select("SELECT tba.*,tbc.name FROM TB_ARTICLES as tba INNER JOIN TB_CATEGORIES AS tbc ON tba.category_id = tbc.id where tba.id = 1 = #{id}")
+    @Select("SELECT tba.*,tbc.name FROM TB_ARTICLES as tba INNER JOIN TB_CATEGORIES AS tbc ON tba.category_id = tbc.id where tba.id = #{id}")
+    @Results({
+            @Result(property = "category.name", column = "name", jdbcType = JdbcType.VARCHAR),
+            @Result(property = "category.id", column = "category_id", jdbcType = JdbcType.INTEGER)
+    })
     Article find(int id);
 
 
     List<Article> paginate(int page, int limit);
 
-//    @Update("update tb_articles set title=#{title}, author=#{author}, description=#{description}, image=#{image}, category=#{category} where id=#{id}")
+    @Update("update tb_articles set title=#{title}, author=#{author}, description=#{description}, image=#{image}, category_id=#{category.id} where id=#{id}")
     void update(Article article);
 
     int getLastId();

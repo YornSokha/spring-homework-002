@@ -33,6 +33,15 @@
                             <input type="text" class="form-control" th:field="*{title}" th:value="*{title}">
                         </div>
                         <div class="form-group">
+                            <label for="" th:text="#{article.category}"></label>
+                            <select class="form-control" required th:field="${article.category.id}">
+                                <!--<option value="0" selected disabled th:text="#{article.choose_category}"></option>-->
+                                <option th:each="catego : ${categories}" th:text="*{name}" th:value="${catego.id}"
+                                        th:object="${catego}"
+                                        th:if="${article.category.id eq catego.id} ? 'selected':'' "></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="" th:text="#{article.author}">Author</label>
                             <span class="text-danger" th:if="${#fields.hasErrors('author')}"
                                   th:text="'*' + #{article.author_not_empty}"></span>

@@ -32,6 +32,12 @@
                             <input type="text" class="form-control" th:field="*{title}" th:value="*{title}" disabled>
                         </div>
                         <div class="form-group">
+                            <label for="" th:text="#{article.category}"></label>
+                            <span class="text-danger" th:if="${#fields.hasErrors('category.name')}"
+                                  th:text="#{article.required('*title')}"></span>
+                            <input type="text" class="form-control" th:value="*{category.name}" disabled>
+                        </div>
+                        <div class="form-group">
                             <label for="" th:text="#{article.author}">Author</label>
                             <span class="text-danger" th:if="${#fields.hasErrors('author')}"
                                   th:text="#{article.required('*author')}"></span>
