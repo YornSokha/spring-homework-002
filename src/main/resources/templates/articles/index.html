@@ -30,6 +30,7 @@
                     <tr>
                         <th th:text="#{article.identifier}"></th>
                         <th th:text="#{article.title}"></th>
+                        <th th:text="#{category}"></th>
                         <th th:text="#{article.author}"></th>
                         <th th:text="#{article.description}"></th>
                         <th th:text="#{article.thumbnail}"></th>
@@ -40,6 +41,7 @@
                     <tr th:each="article, articleStt : ${articles}">
                         <td class="td-center" th:text="${article.id}"></td>
                         <td class="td-center" th:text="${article.title}"></td>
+                        <th class="td-center" th:text="${article.category.name}"></th>
                         <td class="td-center" th:text="${article.author}"></td>
                         <td class="td-center custom-text" th:text="${article.description}"></td>
                         <td>
@@ -67,7 +69,7 @@
 
                     </tbody>
                 </table>
-                <th:block th:replace="fragment/pagination :: pagination"></th:block>
+                <!--<th:block th:replace="fragment/pagination :: pagination"></th:block>-->
             </div>
         </div>
         <div class="card-footer">

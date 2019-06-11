@@ -4,6 +4,7 @@ import com.hrd.springhomework.helper.UploadImage;
 import com.hrd.springhomework.repository.ArticleRepositoryImp;
 import com.hrd.springhomework.repository.model.Article;
 import com.hrd.springhomework.service.ArticleService.ArticleService;
+import com.hrd.springhomework.service.CategoryService.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +20,17 @@ import javax.validation.Valid;
 public class ArticleController {
 
     private ArticleService articleService;
+    private CategoryService categoryService;
 
     @Autowired
     public void setArticleService(ArticleService articleService) {
         this.articleService = articleService;
 //        generateRecord();
+    }
+
+    @Autowired
+    public void setCategoryService(CategoryService categoryService){
+        this.categoryService = categoryService;
     }
 
 //    private void generateRecord() {
@@ -49,18 +56,18 @@ public class ArticleController {
         System.out.println(articleService.findAll().size());
         // page - 1 because paginate array list starts with 0, so need to minus 1
         model.addAttribute("articles", articleService.findAll());
-        model.addAttribute("totalRecord", ArticleRepositoryImp.count);
-        model.addAttribute("currentPage", ArticleRepositoryImp.currentPage + 1);
-        int lastPage = (ArticleRepositoryImp.count / limit) + (ArticleRepositoryImp.count % limit == 0 ? 0 : 1);
-        model.addAttribute("lastPage", lastPage);
+//        model.addAttribute("totalRecord", ArticleRepositoryImp.count);
+//        model.addAttribute("currentPage", ArticleRepositoryImp.currentPage + 1);
+//        int lastPage = (ArticleRepositoryImp.count / limit) + (ArticleRepositoryImp.count % limit == 0 ? 0 : 1);
+//        model.addAttribute("lastPage", lastPage);
         return "/articles/index";
     }
 
     @GetMapping("/article/create")
     public String create(Model model) {
         Article article = new Article();
-        article.setId(articleService.getLastId() + 1);
         model.addAttribute("article", article);
+        model.addAttribute("categories", categoryService.findAll());
         return "/articles/create";
     }
 

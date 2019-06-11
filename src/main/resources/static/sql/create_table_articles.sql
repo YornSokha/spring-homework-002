@@ -1,10 +1,10 @@
-DROP TABLE IF EXISTS articles_tb;
-create table articles_tb(
+DROP TABLE IF EXISTS tb_articles;
+create table tb_articles(
 id serial primary key,
-category int,
+category_id int,
 title varchar(25),
 author varchar(25),
 description varchar(250),
 image varchar(100),
-foreign key(category) references categories_tb(id) on delete cascade on update cascade
+foreign key(category_id) references tb_categories(id) on delete cascade on update cascade
 );

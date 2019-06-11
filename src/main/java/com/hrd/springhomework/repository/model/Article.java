@@ -10,16 +10,8 @@ public class Article {
     private String author;
     private String description;
     private String image;
-    private int category;
+    private Category category;
 
-    public Article(int id, @NotEmpty String title, @NotEmpty String author, String description, String image, int category) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.description = description;
-        this.image = image;
-        this.category = category;
-    }
 
     public Article() {
     }
@@ -59,17 +51,16 @@ public class Article {
     public String getImage() {
         return image;
     }
+    public void setImage(String image) {
+        this.image = image;
+    }
 
-    public int getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     @Override

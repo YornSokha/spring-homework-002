@@ -1,5 +1,6 @@
 package com.hrd.springhomework.configuration;
 
+import com.hrd.springhomework.repository.CategoryRepository.CategoryRepository;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,9 @@ import java.util.Locale;
 
 @Configuration
 public class MultiLanuageConfiguration implements WebMvcConfigurer {
+
+
+
     @Bean
     LocaleResolver localeResolver(){
         SessionLocaleResolver sessionLocaleResolver= new SessionLocaleResolver();

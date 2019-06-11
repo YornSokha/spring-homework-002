@@ -1,2 +1,1 @@
-insert into categories_tb(name)
-values('category 1'), ('category 2')
+insert into tb_categories(name) values('category 1'), ('category 2')

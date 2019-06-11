@@ -2,34 +2,34 @@ package com.hrd.springhomework.repository.ArticleRepository;
 
 import com.hrd.springhomework.repository.model.Article;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.JdbcType;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 public interface ArticleRepository {
-    @Insert("insert into articles_tb(title, author, description, image, category) values(#{title}, #{author}, #{description}, #{image}, #{category}")
+    @Insert("insert into tb_articles(title, author, description, image, category_id) values(#{title}, #{author}, #{description}, #{image}, #{category.id}")
     boolean add(Article article);
 
-    @Delete("delete from articles_tb where id = #{id}")
+    @Delete("delete from tb_articles where id = #{id}")
     boolean remove(Article article);
-    @Select("select * from articles_tb")
+
+    @Select("SELECT tba.*,tbc.name FROM TB_ARTICLES as tba INNER JOIN TB_CATEGORIES AS tbc ON tba.category_id = tbc.id")
+//    @SelectProvider(method = "findAll", type = ArticleProvider.class)
     @Results({
-            @Result(property = "id", column = "id"),
-            @Result(property = "title", column = "title"),
-            @Result(property = "author" , column = "author"),
-            @Result(property = "image", column = "image"),
-            @Result(property = "category", column = "category")
+            @Result(property = "category.id", column = "category_id", jdbcType = JdbcType.INTEGER),
+            @Result(property = "category.name", column = "name", jdbcType = JdbcType.VARCHAR)
     })
     List<Article> findAll();
 
-    @Select("select * from articles_tb where id = #{id}")
+    @Select("SELECT tba.*,tbc.name FROM TB_ARTICLES as tba INNER JOIN TB_CATEGORIES AS tbc ON tba.category_id = tbc.id where tba.id = 1 = #{id}")
     Article find(int id);
 
 
     List<Article> paginate(int page, int limit);
 
-    @Update("update articles_tb set title=#{title}, author=#{author}, description=#{description}, image=#{image}, category=#{category} where id=#{id}")
+//    @Update("update tb_articles set title=#{title}, author=#{author}, description=#{description}, image=#{image}, category=#{category} where id=#{id}")
     void update(Article article);
 
     int getLastId();

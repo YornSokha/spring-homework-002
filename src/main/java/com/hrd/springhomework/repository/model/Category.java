@@ -1,10 +1,7 @@
 package com.hrd.springhomework.repository.model;
 
-import javax.validation.constraints.NotEmpty;
-
 public class Category {
     private int id;
-    @NotEmpty
     private String name;
 
     public Category(int id, String name) {

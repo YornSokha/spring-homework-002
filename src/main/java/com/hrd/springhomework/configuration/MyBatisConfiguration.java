@@ -10,7 +10,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan("com.hrd.mybatis.repository.ArticleRepository")
+@MapperScan("com.hrd.springhomework.repository")
 public class MyBatisConfiguration {
 
     @Autowired

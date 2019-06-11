@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Repository
+//@Repository
 public class ArticleRepositoryImp implements ArticleRepository {
     private List<Article> articleList = new ArrayList<>();
     public static int count;

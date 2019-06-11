@@ -9,22 +9,22 @@ import java.util.List;
 @Repository
 public interface CategoryRepository {
 
-    @Select("select * from category_tb")
+    @Select("select * from tb_categories")
     @Results({
             @Result(property = "id", column = "id"),
             @Result(property = "name", column = "name")
     })
     public List<Category> findAll();
 
-    @Insert("insert into category_tb(name) values(#{name})")
+    @Insert("insert into tb_categories(name) values(#{name})")
     public void add(Category category);
 
-    @Delete("delete * from category_tb where id = #{id}")
-    public void remove(Integer id);
+    @Delete("delete from tb_categories where id = #{id}")
+    public int remove(Integer id);
 
-    @Select("select * from category_tb where id = #{id}")
+    @Select("select * from tb_categories where id = #{id}")
     public Category find(Integer id);
 
-    @Update("update category_tb set name = #{name} where id = #{id}")
+    @Update("update tb_categories set name = #{name} where id = #{id}")
     public void update(Category category);
 }
