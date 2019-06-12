@@ -66,8 +66,11 @@ public class ArticleController {
     }
 
     @GetMapping("/article/search")
-    public String search(@ModelAttribute Article article){
-        System.out.println(article.toString());
+    public String search(@ModelAttribute Article article, Model model){
+//        System.out.println(article.toString());
+        model.addAttribute("articles", articleService.filter(article));
+        model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("articleSearch", new Article());
         return "/articles/index";
     }
 

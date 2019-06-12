@@ -1,6 +1,7 @@
 package com.hrd.springhomework.repository.ArticleRepository;
 
 import com.hrd.springhomework.repository.model.Article;
+import com.hrd.springhomework.repository.provider.ArticleProvider;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 import org.springframework.stereotype.Repository;
@@ -29,6 +30,13 @@ public interface ArticleRepository {
             @Result(property = "category.id", column = "category_id", jdbcType = JdbcType.INTEGER)
     })
     Article find(int id);
+
+    @SelectProvider(method = "filter", type = ArticleProvider.class)
+    @Results({
+            @Result(property = "category.name", column = "name", jdbcType = JdbcType.VARCHAR),
+            @Result(property = "category.id", column = "category_id", jdbcType = JdbcType.INTEGER)
+    })
+    List<Article> filter(Article article);
 
 
     List<Article> paginate(int page, int limit);

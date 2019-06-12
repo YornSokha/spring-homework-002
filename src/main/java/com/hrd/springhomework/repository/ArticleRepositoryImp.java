@@ -22,6 +22,11 @@ public class ArticleRepositoryImp implements ArticleRepository {
     }
 
     @Override
+    public List<Article> filter(Article article) {
+        return null;
+    }
+
+    @Override
     public int getLastId() {
         int size = articleList.size();
         return (size != 0) ? articleList.get(size - 1).getId() : 1;

@@ -14,7 +14,6 @@ public class Article {
     @NotNull
     private Category category;
 
-
     public Article() {
     }
 

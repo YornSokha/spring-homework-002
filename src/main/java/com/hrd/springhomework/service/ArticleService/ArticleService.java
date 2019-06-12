@@ -14,6 +14,8 @@ public interface ArticleService {
 
     Article find(int id);
 
+    List<Article> filter(Article article);
+
     void update(Article article);
 
     int getLastId();

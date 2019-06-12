@@ -18,6 +18,11 @@ public class ArticleServiceImp implements ArticleService {
     }
 
     @Override
+    public List<Article> filter(Article article) {
+        return articleRepository.filter(article);
+    }
+
+    @Override
     public int getLastId() {
         return articleRepository.getLastId();
     }
