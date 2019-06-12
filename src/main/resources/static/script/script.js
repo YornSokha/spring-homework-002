@@ -9,11 +9,16 @@ $(document).ready(function () {
             reader.readAsDataURL(input.files[0]);
         }
     }
+
     $("#file").change(function () {
         readURL(this);
     });
 
-    $('.delete').on('click', (e)=>{
+    $('#btn-filter').on('click', () => {
+
+    });
+
+    $('.delete').on('click', (e) => {
         Swal.fire({
             title: 'Are you sure to delete?',
             text: "This cannot be undone!",
@@ -25,16 +30,18 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.value) {
                 $.notify("Article deleted", "success");
-                setInterval(() =>{$(e.target).closest('form').submit();}, 1200);
+                setInterval(() => {
+                    $(e.target).closest('form').submit();
+                }, 1200);
             }
         })
     });
     let toggle = true;
-    $('#btn-change-navbar').on('click', ()=>{
-        if(toggle === false){
+    $('#btn-change-navbar').on('click', () => {
+        if (toggle === false) {
             toggle = true;
             $('#navbar-replace').load('navbar-dropdown');
-        }else {
+        } else {
             toggle = false;
             $('#navbar-replace').load('navbar');
         }
