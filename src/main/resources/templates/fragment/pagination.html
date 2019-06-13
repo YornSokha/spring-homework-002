@@ -9,10 +9,31 @@
                     <a class="page-link" th:href="@{/(page = ${currentPage} - 1, limit = 10)}" tabindex="-1">Previous</a>
                 </li>
 
-                <li class="page-item" th:each="pageNo : ${#numbers.sequence(1, lastPage)}"
-                    th:classappend="${currentPage eq pageNo}? 'active' : ''">
-                    <a class="page-link" th:href="@{/(page = ${pageNo}, limit = 10)}" th:text="${pageNo}" tabindex="-1"></a>
-                </li>
+                <th:block th:if="${currentPage - 1 gt 0 and currentPage + 1 <= lastPage}">
+                    <li class="page-item" th:each="pageNo : ${#numbers.sequence(currentPage - 1, currentPage + 1)}"
+                        th:classappend="${currentPage eq pageNo}? 'active' : ''">
+                        <a class="page-link" th:href="@{/(page = ${pageNo}, limit = 10)}" th:text="${pageNo}" tabindex="-1"></a>
+                    </li>
+                </th:block>
+
+                <th:block th:if="${currentPage - 1 eq 0}">
+                    <li class="page-item" th:each="pageNo : ${#numbers.sequence(currentPage, lastPage > 3 ? currentPage + 2 : lastPage)}"
+                        th:classappend="${currentPage eq pageNo}? 'active' : ''">
+                        <a class="page-link" th:href="@{/(page = ${pageNo}, limit = 10)}" th:text="${pageNo}" tabindex="-1"></a>
+                    </li>
+                </th:block>
+
+                <th:block th:if="${currentPage eq lastPage}">
+                    <li class="page-item" th:each="pageNo : ${#numbers.sequence(currentPage - 2, currentPage)}"
+                        th:classappend="${currentPage eq pageNo}? 'active' : ''">
+                        <a class="page-link" th:href="@{/(page = ${pageNo}, limit = 10)}" th:text="${pageNo}" tabindex="-1"></a>
+                    </li>
+                </th:block>
+
+                <!--<li class="page-item" th:each="pageNo : ${#numbers.sequence(1, lastPage)}"-->
+                    <!--th:classappend="${currentPage eq pageNo}? 'active' : ''">-->
+                    <!--<a class="page-link" th:href="@{/(page = ${pageNo}, limit = 10)}" th:text="${pageNo}" tabindex="-1"></a>-->
+                <!--</li>-->
 
                 <!--<li class="page-item"><a class="page-link" href="#">1</a></li>-->
                 <!--<li class="page-item active">-->

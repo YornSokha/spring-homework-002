@@ -49,7 +49,7 @@
                             <form th:action="@{/category/{id}(id=${category.id})}" th:method="delete"
                                   style="display: inline">
                                 <a data-toggle="tooltip" data-placement="top"
-                                   title="delete" class="delete" th:attr="data-id=${category.id}"><i
+                                   title="delete" class="delete" data-title="Category is deletedZ" th:attr="data-id=${category.id}"><i
                                         class="far fa-1x-custom text-danger fa-trash-alt"></i></a>
                             </form>
                         </td>

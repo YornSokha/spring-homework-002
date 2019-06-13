@@ -14,7 +14,7 @@
     <!--/.Navbar -->
     <form th:action="@{/article/update}" method="post" th:object="${article}" enctype="multipart/form-data">
         <div class="mt-5">
-            <div class="col col-lg-8 offset-2">
+            <div class="col col-8 offset-2">
                 <div class="card mb-custom">
                     <div class="card-header">
                         <h2 class="card-title d-flex justify-content-center"
@@ -22,7 +22,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-sm-7">
                                 <div class="form-group">
                                     <label for="" th:text="#{article.identifier}">ID</label>
                                     <input type="text" class="form-control" th:field="*{id}" th:value="*{id}" disabled>
@@ -48,12 +48,12 @@
                                            disabled>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-sm-5">
                                 <div class="form-group">
                                     <div class="custom-file" id="customFile" style="height: auto">
                                         <img id="blah" class="center img-thumbnail"
                                              th:src="${article.image eq null} ? '/img/sample.jpg' : '/img/' + *{image}"
-                                             style=" width: auto; margin-top: 2rem" alt="your image"/>
+                                             style=" width: auto; margin-top: 2rem;height: 18.7rem;" alt="your image"/>
                                     </div>
                                 </div>
                             </div>

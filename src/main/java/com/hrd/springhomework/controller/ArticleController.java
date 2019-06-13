@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class ArticleController {
@@ -29,7 +30,7 @@ public class ArticleController {
     }
 
     @Autowired
-    public void setCategoryService(CategoryService categoryService){
+    public void setCategoryService(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
@@ -52,25 +53,37 @@ public class ArticleController {
     @GetMapping({"", "/article"})
     public String index(Model model, @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer limit) {
         System.out.println("Page : " + page + ", Limit : " + limit);
-        page--;
+        System.out.println("Total Article : " + articleService.countArticle());
         System.out.println(articleService.findAll().size());
         // page - 1 because paginate array list starts with 0, so need to minus 1
-        model.addAttribute("articles", articleService.findAll());
+        model.addAttribute("articles", articleService.paginate(page, limit));
         model.addAttribute("categories", categoryService.findAll());
         model.addAttribute("articleSearch", new Article());
+        model.addAttribute("categoryId", null);
 //        model.addAttribute("totalRecord", ArticleRepositoryImp.count);
-//        model.addAttribute("currentPage", ArticleRepositoryImp.currentPage + 1);
-//        int lastPage = (ArticleRepositoryImp.count / limit) + (ArticleRepositoryImp.count % limit == 0 ? 0 : 1);
-//        model.addAttribute("lastPage", lastPage);
+        model.addAttribute("currentPage", page);
+        int lastPage = (articleService.countArticle() / limit) + (articleService.countArticle() % limit == 0 ? 0 : 1);
+        model.addAttribute("totalRecord", articleService.countArticle());
+        model.addAttribute("lastPage", lastPage);
         return "/articles/index";
     }
 
     @GetMapping("/article/search")
-    public String search(@ModelAttribute Article article, Model model){
-//        System.out.println(article.toString());
-        model.addAttribute("articles", articleService.filter(article));
+    public String search(@ModelAttribute Article article, Model model) {
+        Integer categoryId = null;
+        if (article.getCategory() != null) {
+            categoryId = article.getCategory().getId();
+            System.out.println("Category id : " + categoryId);
+        }
+        List<Article> articleList = articleService.filter(article);
+        model.addAttribute("articles", articleList);
         model.addAttribute("categories", categoryService.findAll());
         model.addAttribute("articleSearch", new Article());
+        model.addAttribute("categoryId", categoryId);
+        model.addAttribute("currentPage", -1);
+        model.addAttribute("totalRecord", articleService.countArticle());
+//        int lastPage = (articleList.size() / 10) + (articleList.size() % 10 == 0 ? 0 : 1);
+        model.addAttribute("lastPage", 0);
         return "/articles/index";
     }
 

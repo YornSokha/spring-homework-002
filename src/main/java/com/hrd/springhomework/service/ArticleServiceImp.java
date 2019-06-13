@@ -53,6 +53,11 @@ public class ArticleServiceImp implements ArticleService {
     }
 
     @Override
+    public int countArticle() {
+        return articleRepository.countArticle();
+    }
+
+    @Override
     public boolean remove(int id) {
         Article article = articleRepository.findAll().stream().filter(x -> (id == x.getId())).findFirst().orElse(null);
         return articleRepository.remove(article);

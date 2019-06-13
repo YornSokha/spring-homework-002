@@ -5,6 +5,7 @@ import com.hrd.springhomework.repository.provider.ArticleProvider;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -39,10 +40,18 @@ public interface ArticleRepository {
     List<Article> filter(Article article);
 
 
-    List<Article> paginate(int page, int limit);
-
     @Update("update tb_articles set title=#{title}, author=#{author}, description=#{description}, image=#{image}, category_id=#{category.id} where id=#{id}")
     void update(Article article);
+
+    @Select("select count(*) from tb_articles")
+    int countArticle();
+
+    @SelectProvider(method = "paginate", type = ArticleProvider.class)
+    @Results({
+            @Result(property = "category.name", column = "name", jdbcType = JdbcType.VARCHAR),
+            @Result(property = "category.id", column = "category_id", jdbcType = JdbcType.INTEGER)
+    })
+    List<Article> paginate(@Param("page") int page,@Param("limit") int limit);
 
     int getLastId();
 }

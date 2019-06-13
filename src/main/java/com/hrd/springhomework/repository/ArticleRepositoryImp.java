@@ -22,6 +22,11 @@ public class ArticleRepositoryImp implements ArticleRepository {
     }
 
     @Override
+    public int countArticle() {
+        return 0;
+    }
+
+    @Override
     public List<Article> filter(Article article) {
         return null;
     }

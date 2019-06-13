@@ -25,10 +25,10 @@
             </div>
         </div>
         <div class="card-body">
-            <div th:if="${#lists.size(articles) == 0}">
+            <th:block th:if="${#lists.size(articles) == 0}">
                 <h1>No data</h1>
-            </div>
-            <div th:unless="${#lists.size(articles) == 0}">
+            </th:block>
+            <th:block th:unless="${#lists.size(articles) == 0}">
                 <table class="table table-striped">
                     <thead class="thead-dark">
                     <tr>
@@ -73,26 +73,28 @@
 
                     </tbody>
                 </table>
-                <!--<th:block th:replace="fragment/pagination :: pagination"></th:block>-->
-            </div>
+                <th:block th:if="${currentPage ne -1}">
+                    <th:block th:replace="fragment/pagination :: pagination"></th:block>
+                </th:block>
+            </th:block>
         </div>
         <div class="card-footer">
-            <p class="h5" th:text="#{article.total_articles('' + ${#lists.size(articles)})}"></p>
+            <span class="h5" th:text="#{article.current_articles('' + ${#lists.size(articles)})}"></span>
+            <span class="h5 float-right" th:text="#{article.total_articles('' + ${totalRecord})}"></span>
         </div>
     </div>
 
     <!--filter modal-->
     <div class="modal" tabindex="-1" role="dialog" id="filter-modal">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Search Article</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                ​​​​
-                <form th:action="@{/article/search}" th:object="${articleSearch}">
+            <form th:action="@{/article/search}" th:object="${articleSearch}">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Search Article</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="" th:text="#{article.title}">Title</label>
@@ -101,16 +103,22 @@
                         <div class="form-group">
                             <label for="" th:text="#{article.category}"></label>
                             <select class="form-control" required th:field="${articleSearch.category.id}">
-                                <option value="0" selected disabled th:text="#{article.choose_category}"></option>
-                                <option th:each="catego : ${categories}" th:text="*{name}" th:value="${catego.id}" th:object="${catego}"></option>
+                                <th:block th:if="${#lists.size(categories) eq 0}">
+                                    <option value="0" selected disabled th:text="#{article.choose_category}"></option>
+                                </th:block>
+                                <th:block th:unless="${#lists.size(categories) eq 0}">
+                                    <option value="0" th:text="#{article.choose_category}"></option>
+                                    <option th:each="catego : ${categories}" th:text="*{name}" th:value="${catego.id}"
+                                            th:object="${catego}" th:if="${catego.id eq categoryId} ? 'selected':'' "></option>
+                                </th:block>
                             </select>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Search</button>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

@@ -18,5 +18,7 @@ public interface ArticleService {
 
     void update(Article article);
 
+    int countArticle();
+
     int getLastId();
 }
