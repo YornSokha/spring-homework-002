@@ -19,8 +19,6 @@ $(document).ready(function () {
     });
 
     $('.delete').on('click', (e) => {
-        let title = $(e.target).data('title');
-        console.log(title)
         Swal.fire({
             title: 'Are you sure to delete?',
             text: "This cannot be undone!",
@@ -31,7 +29,7 @@ $(document).ready(function () {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                $.notify(title, "success");
+                $.notify("Record deleted", "success");
                 setInterval(() => {
                     $(e.target).closest('form').submit();
                 }, 1200);

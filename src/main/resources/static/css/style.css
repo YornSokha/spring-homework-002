@@ -13,6 +13,7 @@ body{
 .article{
     /*font-family: 'Roboto', sans-serif;*/
     font-family: 'Open Sans', sans-serif;
+    text-align: justify;
 }
 
 .custom-file-input ~ .custom-file-label::after {

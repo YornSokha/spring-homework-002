@@ -24,7 +24,7 @@
                 </th:block>
 
                 <th:block th:if="${currentPage eq lastPage}">
-                    <li class="page-item" th:each="pageNo : ${#numbers.sequence(currentPage - 2, currentPage)}"
+                    <li class="page-item" th:each="pageNo : ${#numbers.sequence(currentPage - 2 < 1 ? 1 : currentPage - 2, currentPage)}"
                         th:classappend="${currentPage eq pageNo}? 'active' : ''">
                         <a class="page-link" th:href="@{/(page = ${pageNo}, limit = 10)}" th:text="${pageNo}" tabindex="-1"></a>
                     </li>

@@ -1,19 +1,11 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragment/main_layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>Home Page</title>
-    <!--Call fragment-->
-    <th:block th:replace="fragment/style :: style"></th:block>
+    <title>Category Detail</title>
 </head>
 <body>
-<div class="container-fluid">
-    <!--/.Navbar -->
-    <div id="navbar-replace">
-        <th:block th:include="fragment/navbar :: navbar-dropdown"></th:block>
-    </div>
-    <!--'<i class='far fa-2x fa-plus-square'></i> ' +-->
+<div layout:fragment="content" class="container-fluid">
     <div class="card">
         <div class="card-header">
             <a th:href="@{/category/create}" class="btn btn-light-dark text-white" th:utext="#{category.add_new}"></a>
@@ -38,10 +30,6 @@
                         <td class="td-center" th:text="${category.id}"></td>
                         <td class="td-center" th:text="${category.name}"></td>
                         <td class="td-center">
-                            <!--<a th:href="@{/category/show/{id}(id=${category.id})}" data-toggle="tooltip"-->
-                               <!--data-placement="top"-->
-                               <!--title="View" th:attr="data-id=${category.id}"><i-->
-                                    <!--class="far fa-1x-custom fa-eye text-warning"></i></a>-->
                             <a th:href="@{/category/edit/{id}(id=${category.id})}" data-toggle="tooltip"
                                data-placement="top"
                                title="Edit" th:attr="data-id=${category.id}"><i
@@ -49,7 +37,8 @@
                             <form th:action="@{/category/{id}(id=${category.id})}" th:method="delete"
                                   style="display: inline">
                                 <a data-toggle="tooltip" data-placement="top"
-                                   title="delete" class="delete" data-title="Category is deletedZ" th:attr="data-id=${category.id}"><i
+                                   title="delete" class="delete" data-title="Category is deletedZ"
+                                   th:attr="data-id=${category.id}"><i
                                         class="far fa-1x-custom text-danger fa-trash-alt"></i></a>
                             </form>
                         </td>
@@ -65,10 +54,6 @@
             <p class="h5" th:text="#{category.total(''+${#lists.size(categories)})}"></p>
         </div>
     </div>
-
-
 </div>
-<div th:replace="/fragment/footer"></div>
-<th:block th:replace="fragment/script"></th:block>
 </body>
 </html>

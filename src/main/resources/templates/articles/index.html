@@ -1,20 +1,13 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragment/main_layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>Home Page</title>
-    <!--Call fragment-->
-    <th:block th:replace="fragment/style :: style"></th:block>
+    <title>HOME</title>
 </head>
 <body>
-<div class="container-fluid">
-    <!--/.Navbar -->
-    <div id="navbar-replace">
-        <th:block th:include="fragment/navbar :: navbar-dropdown"></th:block>
-    </div>
+<div layout:fragment="content" class="container">
     <!--'<i class='far fa-2x fa-plus-square'></i> ' +-->
-    <div class="card">
+    <div class="card mt-5 mb-5">
         <div class="card-header">
             <a th:href="@{/article/create}" class="btn btn-light-dark text-white" th:utext="#{article.add_new}"></a>
             <div class="float-right">
@@ -73,7 +66,7 @@
 
                     </tbody>
                 </table>
-                <th:block th:if="${currentPage ne -1}">
+                <th:block th:if="${(currentPage ne -1) and (lastPage gt 1)}">
                     <th:block th:replace="fragment/pagination :: pagination"></th:block>
                 </th:block>
             </th:block>
@@ -87,7 +80,7 @@
     <!--filter modal-->
     <div class="modal" tabindex="-1" role="dialog" id="filter-modal">
         <div class="modal-dialog" role="document">
-            <form th:action="@{/article/search}" th:object="${articleSearch}">
+            <form th:action="@{/article}" th:object="${articleSearch}">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Search Article</h5>
@@ -109,7 +102,8 @@
                                 <th:block th:unless="${#lists.size(categories) eq 0}">
                                     <option value="0" th:text="#{article.choose_category}"></option>
                                     <option th:each="catego : ${categories}" th:text="*{name}" th:value="${catego.id}"
-                                            th:object="${catego}" th:if="${catego.id eq categoryId} ? 'selected':'' "></option>
+                                            th:object="${catego}"
+                                            th:if="${catego.id eq categoryId} ? 'selected':'' "></option>
                                 </th:block>
                             </select>
                         </div>
@@ -122,7 +116,5 @@
         </div>
     </div>
 </div>
-<div th:replace="/fragment/footer"></div>
-<th:block th:replace="fragment/script"></th:block>
 </body>
 </html>
