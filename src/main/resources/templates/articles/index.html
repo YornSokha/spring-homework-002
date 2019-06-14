@@ -9,7 +9,7 @@
     <!--'<i class='far fa-2x fa-plus-square'></i> ' +-->
     <div class="card mt-5 mb-5">
         <div class="card-header">
-            <a th:href="@{/article/create}" class="btn btn-light-dark text-white" th:utext="#{article.add_new}"></a>
+            <a th:href="@{/article/add}" class="btn btn-light-dark text-white" th:utext="#{article.add_new}"></a>
             <div class="float-right">
                 <button data-toggle="modal" data-target="#filter-modal" id="btn-filter"
                         class="btn btn-light-dark text-white" th:text="#{article.filter}"></button>
@@ -78,12 +78,12 @@
     </div>
 
     <!--filter modal-->
-    <div class="modal" tabindex="-1" role="dialog" id="filter-modal">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" tabindex="-1" role="dialog" id="filter-modal">
+        <div class="modal-dialog modal-sm" role="document">
             <form th:action="@{/article}" th:object="${articleSearch}">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Search Article</h5>
+                        <h5 class="modal-title" th:text="#{article.search}">Search Article</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -91,25 +91,24 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="" th:text="#{article.title}">Title</label>
-                            <input type="text" class="form-control" th:field="*{title}">
+                            <input type="text" class="form-control form-control-sm" th:field="*{title}">
                         </div>
                         <div class="form-group">
                             <label for="" th:text="#{article.category}"></label>
-                            <select class="form-control" required th:field="${articleSearch.category.id}">
+                            <select class="form-control form-control-sm" required th:field="${articleSearch.category.id}">
                                 <th:block th:if="${#lists.size(categories) eq 0}">
                                     <option value="0" selected disabled th:text="#{article.choose_category}"></option>
                                 </th:block>
                                 <th:block th:unless="${#lists.size(categories) eq 0}">
                                     <option value="0" th:text="#{article.choose_category}"></option>
                                     <option th:each="catego : ${categories}" th:text="*{name}" th:value="${catego.id}"
-                                            th:object="${catego}"
-                                            th:if="${catego.id eq categoryId} ? 'selected':'' "></option>
+                                            th:object="${catego}"></option>
                                 </th:block>
                             </select>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Search</button>
+                        <button type="submit" class="btn btn-sm btn-light-dark text-white" th:text="#{article.filter}">Search</button>
                     </div>
                 </div>
             </form>

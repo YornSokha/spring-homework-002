@@ -5,15 +5,6 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 
 public class ArticleProvider {
-    public String findAll() {
-        return new SQL() {
-            {
-                SELECT("*");
-                FROM("tb_articles");
-//                INNER_JOIN("tb_categories on tb_articles.category = tb_categories.id");
-            }
-        }.toString();
-    }
 
     public String paginate(@Param("page") int page, @Param("limit") int limit) {
         int offset = limit * (page - 1);
@@ -49,10 +40,4 @@ public class ArticleProvider {
         return sql;
     }
 
-//    public String findPagination(int limit){
-//        return new SQL(){{
-//            SELECT("*");
-//            FROM("tb_articles LIMIT #{limit}");
-//        }}.toString();
-//    }
 }

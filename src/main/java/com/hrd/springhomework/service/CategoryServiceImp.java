@@ -37,8 +37,12 @@ public class CategoryServiceImp implements CategoryService {
 
     @Override
     public List<Category> paginate(int page, int limit) {
-        System.out.println("pagination category hasn't implemented yet");
-        return null;
+        return categoryRepository.paginate(page, limit);
+    }
+
+    @Override
+    public int countCategory() {
+        return categoryRepository.countCategory();
     }
 
     @Override

@@ -15,5 +15,7 @@ public interface CategoryService {
 
     void update(Category article);
 
+    int countCategory();
+
     int getLastId();
 }

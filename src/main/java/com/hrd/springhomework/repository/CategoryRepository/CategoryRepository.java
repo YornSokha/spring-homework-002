@@ -1,6 +1,7 @@
 package com.hrd.springhomework.repository.CategoryRepository;
 
 import com.hrd.springhomework.repository.model.Category;
+import com.hrd.springhomework.repository.provider.CategoryProvider;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -14,17 +15,23 @@ public interface CategoryRepository {
             @Result(property = "id", column = "id"),
             @Result(property = "name", column = "name")
     })
-    public List<Category> findAll();
+    List<Category> findAll();
 
     @Insert("insert into tb_categories(name) values(#{name})")
-    public void add(Category category);
+    void add(Category category);
 
     @Delete("delete from tb_categories where id = #{id}")
-    public int remove(Integer id);
+    int remove(Integer id);
 
     @Select("select * from tb_categories where id = #{id}")
-    public Category find(Integer id);
+    Category find(Integer id);
 
     @Update("update tb_categories set name = #{name} where id = #{id}")
-    public void update(Category category);
+    void update(Category category);
+
+    @Select("select count(*) from tb_categories")
+    int countCategory();
+
+    @SelectProvider(method = "paginate", type = CategoryProvider.class)
+    List<Category> paginate(@Param("page") int page, @Param("limit") int limit);
 }

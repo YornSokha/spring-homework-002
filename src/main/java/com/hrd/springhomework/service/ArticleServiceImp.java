@@ -22,10 +22,6 @@ public class ArticleServiceImp implements ArticleService {
         return articleRepository.filter(article);
     }
 
-    @Override
-    public int getLastId() {
-        return articleRepository.getLastId();
-    }
 
     @Override
     public List<Article> paginate(int page, int limit) {

@@ -5,7 +5,6 @@ import com.hrd.springhomework.repository.provider.ArticleProvider;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -18,7 +17,6 @@ public interface ArticleRepository {
     boolean remove(Article article);
 
     @Select("SELECT tba.*,tbc.name FROM TB_ARTICLES as tba INNER JOIN TB_CATEGORIES AS tbc ON tba.category_id = tbc.id")
-//    @SelectProvider(method = "findAll", type = ArticleProvider.class)
     @Results({
             @Result(property = "category.id", column = "category_id", jdbcType = JdbcType.INTEGER),
             @Result(property = "category.name", column = "name", jdbcType = JdbcType.VARCHAR)
@@ -53,5 +51,4 @@ public interface ArticleRepository {
     })
     List<Article> paginate(@Param("page") int page,@Param("limit") int limit);
 
-    int getLastId();
 }

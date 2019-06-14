@@ -20,5 +20,4 @@ public interface ArticleService {
 
     int countArticle();
 
-    int getLastId();
 }

@@ -26,8 +26,18 @@ public class CategoryController {
     }
 
     @GetMapping("/category")
-    public String index(Model model){
-        model.addAttribute("categories", categoryService.findAll());
+    public String index(Model model,
+                        @RequestParam(defaultValue = "1") Integer page,
+                        @RequestParam(defaultValue = "10") Integer limit){
+
+        if (page < 1)
+            page = 1;
+        model.addAttribute("categories", categoryService.paginate(page, limit));
+        model.addAttribute("currentPage", page);
+        int lastPage = (categoryService.countCategory() / limit) + (categoryService.countCategory() % limit == 0 ? 0 : 1);
+        model.addAttribute("lastPage", lastPage);
+        model.addAttribute("totalCategory", categoryService.countCategory());
+        System.out.println("Last page : " + lastPage);
         return "categories/index";
     }
 

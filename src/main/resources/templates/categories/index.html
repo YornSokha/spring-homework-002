@@ -5,8 +5,8 @@
     <title>Category Detail</title>
 </head>
 <body>
-<div layout:fragment="content" class="container-fluid">
-    <div class="card">
+<div layout:fragment="content" class="container">
+    <div class="card mt-5 mb-5">
         <div class="card-header">
             <a th:href="@{/category/create}" class="btn btn-light-dark text-white" th:utext="#{category.add_new}"></a>
             <a class="btn btn-light-dark text-white float-right" id="btn-change-navbar"
@@ -49,9 +49,13 @@
                 </table>
                 <!--<th:block th:replace="fragment/pagination :: pagination"></th:block>-->
             </div>
+
+            <th:block th:if="${(currentPage ne -1) and (lastPage gt 1)}">
+                <th:block th:replace="fragment/pagination :: pagination_category"></th:block>
+            </th:block>
         </div>
         <div class="card-footer">
-            <p class="h5" th:text="#{category.total(''+${#lists.size(categories)})}"></p>
+            <p class="h5" th:text="#{category.total(''+${totalCategory})}"></p>
         </div>
     </div>
 </div>
